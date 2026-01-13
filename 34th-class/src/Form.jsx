@@ -20,6 +20,7 @@ const Form = () => {
   return (
     <div>
          <form onSubmit={handleSubmit} className="flex flex-col space-y-3 px-10 pt-5 w-[30%]">
+          <h1 className='text-xl text-blue-500 font-bold text-center'>User Form</h1>
           <input  onChange={(e)=>setName(e.target.value)}  className="border p-2 rounded" type="text" placeholder="Enter Your Name" />
           <input  onChange={(e)=>setEmail(e.target.value)} className="border p-2 rounded " type="email" placeholder="Enter Your Email" />
           <input onChange={(e)=>setAge(e.target.value)} className="border p-2 rounded " type="number" placeholder="Enter Your Age" />

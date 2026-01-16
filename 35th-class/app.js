@@ -1,11 +1,19 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const studentRoutes = require('./routes/studentRoutes')
 
 const app = express()
+
+app.use(express.json())
+
 
 app.get('/', (req, res) =>{
     res.send('backend is running Accurately')
     })
+
+app.use('/students', studentRoutes)
+
+
 mongoose.connect('mongodb+srv://mbilal45422_db_user:466YhYsHLsPQUED8@cluster0.zawrjkt.mongodb.net/')
 .then(()=>{
     console.log('Database Connected Successfully')

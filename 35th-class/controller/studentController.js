@@ -28,3 +28,30 @@ exports.createStudent = async (req,res)=>{
         })
     }
 }
+
+exports.getStudents = async (req,res) =>{
+    try {
+        
+
+        const getStudents = await studentModel.find()
+
+        if(getStudents.length === 0){
+            res.status(200).json({
+                message:"No Student Found",
+                data: getStudents
+            })
+        }
+        res.status(200).json({
+            message: "Students Data Get it Successfully",
+            data:getStudents
+        })
+
+
+
+    } catch (error) {
+         res.status(500).json({
+            message:'Error getting Students Data',
+            error: error.message
+        })
+    }
+}

@@ -1,5 +1,4 @@
 const studentModel = require('../models/studentModel')
-
 exports.createStudent = async (req,res)=>{
     try {
         const studentRollNo = req.body.studentRollNo
@@ -52,6 +51,62 @@ exports.getStudents = async (req,res) =>{
          res.status(500).json({
             message:'Error getting Students Data',
             error: error.message
+        })
+    }
+}
+
+exports.deleteStudent = async (req,res) => {
+    try {
+
+        const rollNo = req.params.rollNo
+
+        const student = await studentModel.findOneAndDelete({studentRollNo: rollNo})
+
+        if(!student){
+            res.status(200).json({
+                message:"No Student found",
+                data:student
+            })
+        }
+
+        res.status(200).json({
+            message:"Student Data deleted Successfully",
+            data:student
+        })
+
+
+    } catch (error) {
+        res.status(500).json({
+            message:"Student data deletion failed",
+            error:error.message
+        })
+    }
+}
+
+exports.getStudentById = async (req,res) => {
+    try {
+        
+        const rollNo = req.params.rollNo
+
+        const student = await studentModel.findOne({studentRollNo:rollNo})
+
+        if(!student){
+            res.status(200).json({
+                message:"No Student found",
+                data: student
+            })
+        }
+
+        res.status(200).json({
+            message:"Student data getted successfully",
+            data:student
+        })
+
+
+    } catch (error) {
+        res.status(200).json({
+            message:"Student data getting failed",
+            error:error.message
         })
     }
 }

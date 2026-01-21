@@ -1,9 +1,12 @@
 const express = require('express')
 const { mongoose } = require('mongoose')
 const phoneRoutes = require('./routes/phone.routes')
+const cors = require('cors')
 
 const app = express()
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(cors('http://localhost:5173'))
 
 app.get('/', (req,res)=>{
     res.send('Backend Run Successfully')

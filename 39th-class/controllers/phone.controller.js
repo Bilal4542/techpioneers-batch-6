@@ -1,8 +1,10 @@
 const phonesModel = require("../models/phones.model")
 
-exports.createPhone = async (req, res) => {
-    try {
 
+exports.createPhone = async (req, res) => {
+
+    try {
+console.log(req.body)
         const phoneName = req.body.phoneName
         const phoneDescription = req.body.phoneDescription
         const phoneCompany = req.body.phoneCompany
@@ -105,4 +107,45 @@ try {
     })
 }
 
+}
+
+exports.updatePhone = async (req,res) => {
+    try {
+        
+        const id = req.params.id
+
+        const phoneName = req.body.phoneName
+        const phoneDescription = req.body.phoneDescription
+        const phoneCompany = req.body.phoneCompany
+        const releaseDate = req.body.releaseDate
+
+        const updatedPhone = await phonesModel.findByIdAndUpdate(
+            id,
+            {
+            phoneName:phoneName,
+            phoneDescription:phoneDescription,
+            phoneCompany:phoneCompany,
+            releaseDate:releaseDate
+        },
+        {new:true}
+        )
+
+        if(!updatedPhone){
+            res.status(200).json({
+                message:"No Phone Founded",
+                data: updatedPhone
+            })
+        }
+
+        res.status(200).json({
+            message:"Phone Data Updated Successfully",
+            data: updatedPhone
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            message:"Phone Data updation failed",
+            error:error.message
+        })
+    }
 }

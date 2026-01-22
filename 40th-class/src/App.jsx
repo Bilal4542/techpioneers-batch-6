@@ -10,7 +10,7 @@ function App() {
       
       const res = await axios.get('http://localhost:9000/phone/getPhones')
       setPhone(res.data.data)
-      console.log('Phones', res.data.data)
+      console.log('Phones', res.data.data) 
 
     } catch (error) {
      console.log('error', error) 
@@ -26,6 +26,7 @@ function App() {
       {phone?.map((item) => {
       return(
         <div className="">
+          <h1 className='text-2xl font-bold p-1'>ID: {item._id}</h1>
           <h1 className='text-2xl font-bold p-1'>Phone Name: {item.phoneName}</h1>
           <h2 className='text-2xl font-bold p-1'>Phone Description: {item.phoneDescription}</h2>
           <h3 className='text-2xl font-bold p-1'>Release Date: {item.releaseDate}</h3>

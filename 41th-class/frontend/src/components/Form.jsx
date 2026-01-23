@@ -1,32 +1,49 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 
 const Form = () => {
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [age, setAge] = useState()
-    const [phone, setPhone] = useState()
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [age, setAge] = useState("")
+    const [phone, setPhone] = useState("")
+
+  
 
   
    
         const handleSubmit = async (e) => {
             e.preventDefault()
-            const userData = {name,email,age,phone}
+            const userData = {
+                userName:name,
+                userEmail:email,
+                userAge:age,
+                userPhone:phone}
     try {
         
         const res = await axios.post('http://localhost:3000/user/postuser', userData)
         console.log(res.data.data)
+
+        if(res.status === 200){
+            alert('Form Submitted Submitted')
+            setName('')
+            setEmail('')
+            setAge('')
+            setPhone('')
+        }
 
     } catch (error) {
         console.error("Error:", error);
     }
             }
 
+  
    
 
   return (
+    <>
      <div>
          <form onSubmit={handleSubmit} className="flex flex-col space-y-3 px-10 pt-5 w-[30%]">
           <h1 className='text-xl text-blue-500 font-bold text-center'>User Form</h1>
@@ -37,6 +54,8 @@ const Form = () => {
           <button type="submit" className="p-2 rounded bg-blue-500 font-semibold cursor-pointer" >Submit</button>
         </form>
     </div>
+    
+    </>
   )
 }
 

@@ -25,3 +25,27 @@ exports.postuser = async (req,res)=>{
         })
     }
 }
+
+exports.getUsers = async(req,res) => {
+    try {
+        
+        const users = await userModel.find()
+        if(users.length === 0){
+            res.status(200).json({
+                message:"No user found",
+                data:users
+            })
+        }
+
+        res.status(200).json({
+            message:"user getted successfully",
+            data:users
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            message:"internal server error",
+            error:error.message
+        })
+    }
+}

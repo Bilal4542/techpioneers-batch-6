@@ -12,6 +12,9 @@ const bookSchema = new mongoose.Schema({
     },
     bookPrice:{
         type:Number
+    },
+    bookImage:{
+        type:String
     }
 })
 module.exports = mongoose.model('book', bookSchema)

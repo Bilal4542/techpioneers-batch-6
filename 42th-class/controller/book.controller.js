@@ -7,7 +7,8 @@ exports.createBook = async (req,res) =>{
             bookCategory:bookCategory,
             bookTitle:bookTitle,
             bookDescription:bookDescription,
-            bookPrice:bookPrice
+            bookPrice:bookPrice,
+            bookImage: req.file ? req.file.filename : null
         })
 
         const result = await book.save()
@@ -52,16 +53,23 @@ exports.updateBook = async (req,res) => {
     const id = req.params.id
     const {bookCategory,bookTitle,bookDescription,bookPrice} = req.body;
 
+    const updateData = {
+      bookCategory,
+      bookTitle,
+      bookDescription,
+      bookPrice
+    };
+
+
+    if (req.file) {
+        updateData.bookImage = req.file.filename; // ✅
+    }
     const updatedbook = await bookModel.findByIdAndUpdate(
         id,
-        {
-        bookCategory,
-        bookTitle,
-        bookDescription,
-        bookPrice            
-        },
+        updateData,
         {new:true}
-            )
+        )
+
     if(!updatedbook){
         res.status(200).json({
             message:"No Book Found",
